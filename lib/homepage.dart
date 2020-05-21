@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     List<String> lists = [
-      'Cover your caugh',
+      'Cover your cough',
       'Keep social distance',
       'Stay at home',
       'Wash your hands',
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                 height: size.height * 0.3,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                     image: AssetImage('images/bg.jpg'),
                   ),
                 ),
@@ -394,23 +394,31 @@ class CaseBox extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _caseSegment(
-            color: Colors.blue,
-            text: 'Confirmed',
-            totalnumber: '$confirmedTotal',
-            dailynumber: '$confirmedToday',
+          Expanded(
+            child: _caseSegment(
+              color: Colors.blue,
+              text: 'Confirmed',
+              totalnumber: '$confirmedTotal',
+              dailynumber: '$confirmedToday',
+            ),
           ),
-          _caseSegment(
-            color: Colors.green,
-            text: 'Recovered',
-            totalnumber: '$recoveredTotal',
-            dailynumber: '',
+          SizedBox(width: 10.0),
+          Expanded(
+            child: _caseSegment(
+              color: Colors.green,
+              text: 'Recovered',
+              totalnumber: '$recoveredTotal',
+              dailynumber: '',
+            ),
           ),
-          _caseSegment(
-            color: Colors.red,
-            text: 'Deceased',
-            totalnumber: '$deceasedTotal',
-            dailynumber: '$deceasedToday',
+          SizedBox(width: 10.0),
+          Expanded(
+            child: _caseSegment(
+              color: Colors.red,
+              text: 'Deceased',
+              totalnumber: '$deceasedTotal',
+              dailynumber: '$deceasedToday',
+            ),
           ),
         ],
       ),
@@ -420,9 +428,11 @@ class CaseBox extends StatelessWidget {
   Column _caseSegment(
       {Color color, String text, String totalnumber, String dailynumber}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text(
+        AutoSizeText(
           text,
+          maxLines: 1,
           style: TextStyle(
             fontSize: 15.0,
             color: Colors.grey,
@@ -440,14 +450,16 @@ class CaseBox extends StatelessWidget {
         ),
         SizedBox(height: 10.0),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
               Icons.arrow_upward,
               size: 13.0,
               color: color,
             ),
-            Text(
+            AutoSizeText(
               '$dailynumber',
+              maxLines: 1,
               style: TextStyle(
                 fontSize: 15.0,
                 color: color,
